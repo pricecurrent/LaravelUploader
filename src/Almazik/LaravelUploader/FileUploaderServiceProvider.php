@@ -13,11 +13,11 @@ class FileUploaderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'laravelUploader');
+        $this->loadViewsFrom(__DIR__ . '/../../views', 'laravelUploader');
 
         $this->publishes(
             [
-                __DIR__ . '/views' => base_path('resources/views/vendor/almazik/laravelUploader'),
+                __DIR__ . '/../../views' => base_path('resources/views/vendor/laravelUploader'),
             ]
         );
     }
