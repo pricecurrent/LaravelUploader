@@ -1,13 +1,18 @@
 {
     "name": "almazik/laravel-uploader",
     "description": "A package that allows easily handle uploading files to your server from different sources.",
+    "homepage": "https://github.com/pricecurrent/LaravelUploader",
     "license": "MIT",
     "authors": [
         {
             "name": "Andrew Almazik",
-            "email": "code.bright.anywhere@gmail.com"
+            "email": "code.bright.anywhere@gmail.com",
+            "role": "Developer"
         }
     ],
+    "require": {
+        "php": ">=5.3.0"
+    },
     "autoload": {
         "psr-0": {
             "ALmazik\\LaravelUploader": "src/"
