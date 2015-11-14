@@ -16,7 +16,10 @@
     "autoload": {
         "psr-0": {
             "ALmazik\\LaravelUploader": "src/"
-        }
+        },
+        "files": [
+            "src/Almazik/LaravelUploader/routes.php"
+        ]
     },
     "minimum-stability": "dev",
     "require": {}
