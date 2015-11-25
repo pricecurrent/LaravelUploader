@@ -6,13 +6,22 @@ use File;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Almazik\LaravelUploader\Uploader;
 use Illuminate\Contracts\Filesystem\Factory;
+use Almazik\LaravelUploader\Contracts\Uploader;
+use Almazik\LaravelUploader\Contracts\AlmazikFile;
+use Almazik\LaravelUploader\Files\FormUploadedFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LaravelUploader implements Uploader
 {
     protected $storage;
+
+    /**
+     * @var  AlmazikFile $file
+     */
+    protected $file;
+
+    protected $fullPath;
 
     protected $fileContents;
     protected $filename;
@@ -24,14 +33,23 @@ class LaravelUploader implements Uploader
         $this->storage = $storage;
     }
 
-    public function go($file, $path = '')
+    public function file($file)
+    {
+        if ($file instanceof UploadedFile) {
+            $this->file = new FormUploadedFile($file);
+        }
+
+        return $this;
+    }
+
+    public function push($path = '')
     {
         if (! $this->getFileContents()) {
-            $this->buildFileContents($file);
+            $this->fileContents($this->file->getContents());
         }
 
         if (! $this->getFilename()) {
-            $this->buildFilename($file);
+            $this->filename($this->file->getFilename());
         }
 
         if (! $this->getFilePath()) {
@@ -44,24 +62,10 @@ class LaravelUploader implements Uploader
     protected function upload()
     {
         $this->storage->put(
-            $this->filePath . '/'. $this->filename,
+            $this->fullPath(),
             $this->fileContents,
             $this->acl
         );
-    }
-
-    protected function buildFileContents($file)
-    {
-        if ($file instanceof UploadedFile) {
-            $this->fileContents = File::get($file);
-        }
-    }
-
-    protected function buildFilename($file)
-    {
-        if ($file instanceof UploadedFile) {
-            $this->filename = str_replace(' ', '_', time() . '_' . $file->getClientOriginalName());
-        }
     }
 
     public function fileContents($contents)
@@ -105,5 +109,15 @@ class LaravelUploader implements Uploader
     public function getFilePath()
     {
         return $this->filePath;
+    }
+
+    public function getFullPath()
+    {
+        return $this->fullPath;
+    }
+
+    private function fullPath()
+    {
+        return $this->fullPath = $this->filePath . '/'. $this->filename;
     }
 }

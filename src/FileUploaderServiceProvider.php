@@ -2,28 +2,12 @@
 
 namespace Almazik\LaravelUploader;
 
-use Almazik\LaravelUploader\Uploader;
 use Illuminate\Support\ServiceProvider;
 use Almazik\LaravelUploader\LaravelUploader;
+use Almazik\LaravelUploader\Contracts\Uploader;
 
 class FileUploaderServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        // $this->loadViewsFrom(__DIR__ . '/../../views', 'laravelUploader');
-
-        // $this->publishes(
-        //     [
-        //         __DIR__ . '/../../views' => base_path('resources/views/vendor/laravelUploader'),
-        //     ]
-        // );
-    }
-
     /**
      * Register the application services.
      *
