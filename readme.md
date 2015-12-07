@@ -77,6 +77,34 @@ class SomeController extends Controller
 
 You can chain methods.
 
+### Input Sources
+Currently package supports 2 input types: files uploaded through the form (as described above) and base64_encoded version of the file.
+
+Imaging that you integrating some kind of third party api that would send you files in base64_encoded format. Easy enough:
+
+class SomeController extends Controller
+{
+    protected $uploader;
+
+    public function __construct(Uploader $uploader)
+    {
+        $this->uploader = $uploader;
+    }
+
+    public function upload(Request $request)
+    {
+        $encoded = $this->someService->getBase64Encoded();
+
+        $this->uploader
+            ->file($encoded)
+            ->filename('foobar.jpg')
+            ->push('path/to/store/file');
+    }
+}
+```
+
+Just notice that in this case you'll likely want to explicitly tell the filename to use as the package itself will try to lookup the given file mime-type and associate it with extension, but this doesn't work 100% of the times as not every mime-type has a fixed extension.
+
 ## Destination
 
 The package uses Laravel's filesystem, so it has built in support for all drivers as Laravel does: local, s3, ftp, rackspace.

@@ -3,7 +3,6 @@
 namespace Almazik\LaravelUploader;
 
 use Illuminate\Support\ServiceProvider;
-use Almazik\LaravelUploader\LaravelUploader;
 use Almazik\LaravelUploader\Contracts\Uploader;
 
 class FileUploaderServiceProvider extends ServiceProvider
