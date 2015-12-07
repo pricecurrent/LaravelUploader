@@ -82,6 +82,8 @@ Currently package supports 2 input types: files uploaded through the form (as de
 
 Imaging that you integrating some kind of third party api that would send you files in base64_encoded format. Easy enough:
 
+```php
+
 class SomeController extends Controller
 {
     protected $uploader;
@@ -101,6 +103,7 @@ class SomeController extends Controller
             ->push('path/to/store/file');
     }
 }
+
 ```
 
 Just notice that in this case you'll likely want to explicitly tell the filename to use as the package itself will try to lookup the given file mime-type and associate it with extension, but this doesn't work 100% of the times as not every mime-type has a fixed extension.
