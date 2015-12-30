@@ -16,7 +16,7 @@ class FileUploaderServiceProvider extends ServiceProvider
     {
         $this->app->bind(Uploader::class, LaravelUploader::class);
 
-        $this->app->bindShared('uploader', function () {
+        $this->app->singleton('uploader', function () {
             return $this->app->make(Uploader::class);
         });
     }
