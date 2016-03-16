@@ -70,6 +70,8 @@ class LaravelUploader implements Uploader
      */
     public function file($file)
     {
+        $this->destroy();
+
         if ($file instanceof UploadedFile) {
             $this->file = new FormUploadedFile($file);
 
@@ -111,11 +113,13 @@ class LaravelUploader implements Uploader
      */
     protected function upload()
     {
-        return $this->storage->put(
+        $this->storage->put(
             $this->fullPath(),
             $this->fileContents,
             $this->acl
         );
+
+        return $this;
     }
 
     /**
@@ -200,5 +204,12 @@ class LaravelUploader implements Uploader
     private function fullPath()
     {
         return $this->fullPath = $this->filePath . '/'. $this->filename;
+    }
+
+    protected function destroy()
+    {
+        $this->fileContents = null;
+        $this->filename = null;
+        $this->filePath = null;
     }
 }
