@@ -71,6 +71,7 @@ class LaravelUploader implements Uploader
     public function file($file)
     {
         $this->destroy();
+        
 
         if ($file instanceof UploadedFile) {
             $this->file = new FormUploadedFile($file);
